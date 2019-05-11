@@ -1,0 +1,51 @@
+import os
+import csv
+
+#The csv is saved to my documents
+election_csv = os.path.join("Documents","election_data.csv")
+
+count = 0
+can_list = []
+candidates = []
+vote_count = []
+votepercent = []
+
+with open(election_csv, newline="") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+    csv_header = next(csvreader)
+    for row in csvreader:
+        count = count + 1
+        can_list.append(row[2])
+        
+    for x in set(can_list):
+        candidates.append(x)
+        y = can_list.count(x)
+        vote_count.append(y)
+        z = (y/count)*100
+        votepercent.append(z)
+
+    winning_vote_count = max(vote_count)
+    winner = candidates[vote_count.index(winning_vote_count)]
+
+print("-------------------------")
+print("Election Results")   
+print("-------------------------")
+print("Total Votes: " + str(count))    
+print("-------------------------")
+for i in range(len(candidates)):
+            print(candidates[i] + ": " + str(votepercent[i]) +"% (" + str(vote_count[i])+ ")")
+print("-------------------------")
+print("Winner: " + winner)
+print("-------------------------")
+
+with open('election_results.txt', 'w') as text:
+    text.write("Election Results\n")
+    text.write("---------------------------------------\n")
+    text.write("Total Vote: " + str(count) + "\n")
+    text.write("---------------------------------------\n")
+    
+    for i in range(len(set(candidates))):
+        text.write(candidates[i] + ": " + str(votepercent[i]) +"% (" + str(vote_count[i]) + ")\n")
+        text.write("---------------------------------------\n")
+        text.write("Winner: " + winner + "\n")
+        text.write("---------------------------------------\n")
