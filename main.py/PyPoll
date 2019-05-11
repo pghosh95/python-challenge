@@ -38,7 +38,7 @@ print("-------------------------")
 print("Winner: " + winner)
 print("-------------------------")
 
-with open('Election_Results.txt', 'w') as text:
+with open("Election_Results.txt", "w") as text:
     text.write("Election Results\n")
     text.write("---------------------------------------\n")
     text.write("Total Vote: " + str(count) + "\n")
